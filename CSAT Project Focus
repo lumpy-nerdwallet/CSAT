@@ -1,0 +1,12 @@
+CSAT Project Focus:
+
+1) Spellcheck (how necessary is it? Use a basic tool):
+	- needs a good NW-focused corpus: we can start by downloading all our texts, and maybe adding a dictionary of words and other texts
+
+2) Sentiment Analyzer (put to the back)
+
+3) Word Cloud - Topic Analyzer
+	- NEEDS A CORPUS
+	- Approach 1: TF-IDF (just something simple. Really, you just need to showcase those that are important)
+	- Approach 2: LDA
+	- 
