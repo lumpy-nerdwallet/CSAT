@@ -13,7 +13,7 @@ def get_url_info(url):
 	try:
 		r = requests.get(url, headers = USER_AGENT, allow_redirects = True, timeout = (5, 5))
 		status_code = r.status_code
-        if r.status_code == requests.codes.ok:
+        if status_code == requests.codes.ok:
             tree = html.fromstring(r.content)
             content = [string.encode("UTF-8") for string in tree.xpath(XPATH)]
             if len(content) > 0 and not content[0].startswith("by:"): ## dealing with names
