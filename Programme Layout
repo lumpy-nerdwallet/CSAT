@@ -1,0 +1,55 @@
+What I want is this:
+
+1) Object:
+	- post_id: number
+	- url_tx: string
+	- comment_list: [comment_index 1, comment_index 2 ...]
+		- we'll need to kmeans on each of their normalized scores, as well as keep track of their absolute scores
+		- I say FOR ALL COMMENTS we keep track of COMMENT_NUMBER (original df index), COMMENT_LDA_ORIGINAL, k-means-category, distance-to-centroid.
+		- for each post_id, keep track of K-MEANS CLASSIFICATION for all, relevant-k-means-groups
+	- alert_score
+	- csat_score: number
+	- k-means-counts
+	- is_important_post:
+		- iff True, then store/compute
+		- k-means-counts
+		- order comments by k-means
+
+1) Alert_scores: should be focused on narrowing by timeframe. 
+2) CSat changes should be checked by subsetting df and doing "manual query" on pre-post, moving averages, and what people are saying (so LDA then k-means on the types of words). Best to subset DF by post_id.
+
+--------
+
+after LDA we should get back 
+post_id, alert_score ranking. 
+
+pre-compute all this shit:
+return top N post_ids.
+for each of the N post_ids:
+	if it's past a certain number of comments (e.g. MIN_NUMBER_TO_K_MEANS):
+		obtain k-means-counts, k-means-centroids
+		store table of:
+		comment_index, COMMENT_LDA_ORIGINAL, k-means-category, L2-norm-from-centroid. (when pulling out, we can pull by top-comment-lda-original, or subset by k-means category, and pull by l2-norm-from-centroid.)
+	else:
+		store table of:
+		comment_index, COMMENT_LDA_ORIGINAL. 
+
+
+So when initializing, I should store:
+Object
+	- post_id
+	- url_tx
+	- comment_table:
+		comment_index from DF, comment_LDA_ORIGINAL, alert-comment-score, comment_LDA_NORMALIZED, k-means-category, L2-norm-from-centroid (only computed for those with a category number above some baserate, all others -1)
+
+		OR
+
+		comment_index from DF, comment_LDA_ORIGINAL, alert-comment-score (sort by this)
+	- alert_score
+	- csat_score
+	- is_important_post 
+
+
+so you should have a def init:
+- Insert a DF
+- 
